@@ -84,7 +84,8 @@ func (a *action) runWithT(ctx context.Context, cfg *envconf.Config, t *testing.T
 			}
 
 			var err error
-			ctx, err = f(ctx, cfg, t)
+			cfgCopy := *cfg
+			ctx, err = f(ctx, &cfgCopy, t)
 			if err != nil {
 				return ctx, err
 			}
@@ -110,7 +111,8 @@ func (a *action) runWithFeature(ctx context.Context, cfg *envconf.Config, t *tes
 			}
 
 			var err error
-			ctx, err = f(ctx, cfg, t, fi)
+			cfgCopy := *cfg
+			ctx, err = f(ctx, &cfgCopy, t, fi)
 			if err != nil {
 				return ctx, err
 			}
@@ -132,7 +134,8 @@ func (a *action) run(ctx context.Context, cfg *envconf.Config) (context.Context,
 		}
 
 		var err error
-		ctx, err = f(ctx, cfg)
+		cfgCopy := *cfg
+		ctx, err = f(ctx, &cfgCopy)
 		if err != nil {
 			return ctx, err
 		}
